@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    /*
+    here i explicitly declared types which turned off the typeScript autodiscover feature becuse it also includes the useless transitve types 
+    which we are using
+    Can remove types module in this and restart the server (it should work)
+    */
+    "types": ["node","jest"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    /*
+    Just keeping it for future refernce of why it is commented out
+    */
+    // "baseUrl": "./",
+    "paths": {
+      "@app/*": ["./src/*"]
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
