@@ -11,6 +11,11 @@ on:
     paths:
       - "backend/**"
 
+# Automatically cancel in-progress builds for the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +33,7 @@ jobs:
         with: 
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: backend/package-lock.json
 
       - name: Install Dependencies
         run: |
@@ -36,7 +41,7 @@ jobs:
 
       - name: Format Check
         run: |
-          npm prettier --check backend
+          npx prettier --check backend
 
       - name: Build
         run: |
