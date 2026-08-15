@@ -49,4 +49,4 @@ jobs:
 
       - name: Build
         run: |
-          npm run build -w backend
+          npm run build 
