@@ -2,7 +2,7 @@ name: Backend CI
 
 on:
   push:
-    path:
+    paths:
       - "backend/**"
 
   pull_request:
@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-ons: ubuntu-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -28,7 +28,7 @@ jobs:
         with: 
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-paths: package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install Dependencies
         run: |
