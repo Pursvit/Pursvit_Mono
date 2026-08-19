@@ -3,6 +3,7 @@ import { HydratedDocument } from "mongoose";
 
 export type UserDocument = HydratedDocument<Users>;
 
+// This function is used to remove password and version ley from where we are using this function
 const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
   delete ret.passwordHash;
   delete ret.__v;
