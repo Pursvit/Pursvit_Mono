@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
+import { HydratedDocument, Types} from "mongoose";
 
 export type UserDocument = HydratedDocument<Users>;
 
-// This function is used to remove password and version ley from where we are using this function
+// This function is used to remove password and version key from where we are using this function(Currently JSON/Object)
 const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
   delete ret.passwordHash;
   delete ret.__v;
@@ -20,6 +20,9 @@ const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
   },
 })
 export class Users {
+
+  _id!: Types.ObjectId;
+
   @Prop({
     required: [true, "Email required"],
     unique: true,
@@ -30,21 +33,21 @@ export class Users {
       "Please provide a valid email address",
     ],
   })
-  email!: String;
+  email!: string;
 
   @Prop({
     required: [true, "Password Required"],
     select: false,
     minlength: [8, "Password is of minimum of 8 character"],
   })
-  passwordHash!: String;
+  passwordHash!: string;
 
   @Prop({
     required: [true, "Name Required"],
     trim: true,
     maxlength: [100, "Name Cannot Be More Than 100 Char"],
   })
-  name!: String;
+  name!: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

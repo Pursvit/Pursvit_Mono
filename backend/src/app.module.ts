@@ -7,11 +7,17 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    /*
+    ConfigModule.forRoot({
+      isGlobal: true; // will make this import all over source code can be used i am not using currently
+    }),
+    */
+    // using forRootAsync makes connection asyncronous and configservice is useful rather than reapeatidly calling process.env
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configservice: ConfigService) => ({
-        uri: configservice.get<string>("DATABASE_URL"),
+      useFactory: (config: ConfigService) => ({
+        uri: config.get<string>("DATABASE_URL"),
       }),
     }),
   ],
