@@ -40,7 +40,7 @@ export class AuthService {
     if(!isValid) throw new UnauthorizedException(" Invalid credentials");
 
     // JWT Zone
-    const payload = { sub: user._id, email: user.email};
+    const payload = { sub: user._id, email: user.email}; // Going to use userResponseDto to avoid exposing the objectID
     const accessToken = this.jwtService.sign(payload);
 
     return { accessToken, user };
