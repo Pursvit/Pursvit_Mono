@@ -1,4 +1,5 @@
 import {
+  IsDate,
   IsEnum,
   IsNotEmpty,
   IsObject,
@@ -24,4 +25,7 @@ export class CreateApplicationDto {
   @IsOptional()
   @IsString()
   status?: string;
+
+  @IsDate()
+  nextFollowUpDate!: Date;
 }
