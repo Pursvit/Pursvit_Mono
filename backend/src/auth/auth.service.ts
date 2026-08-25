@@ -1,7 +1,11 @@
-import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { RegisterDto } from "./dto/register.dto";
 import { UserService } from "@app/users/users.service";
-import * as argon from 'argon2';
+import * as argon from "argon2";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
 
@@ -23,7 +27,7 @@ export class AuthService {
     return await argon.verify(passwordHash, password);
   }
 
-  async register(registerInput: RegisterDto){
+  async register(registerInput: RegisterDto) {
     const passwordHash = await this.hash(registerInput.password);
 
     return this.userService.createUser({
@@ -33,22 +37,25 @@ export class AuthService {
     });
   }
 
-  async login(loginIn: LoginDto){
+  async login(loginIn: LoginDto) {
     const user = await this.userService.findUserByEmail(loginIn.email);
-    if(!user) throw new UnauthorizedException(" Invalid Credentials");
-    const isValid = await this.comparePassword(loginIn.password, user.passwordHash);
-    if(!isValid) throw new UnauthorizedException(" Invalid credentials");
+    if (!user) throw new UnauthorizedException(" Invalid Credentials");
+    const isValid = await this.comparePassword(
+      loginIn.password,
+      user.passwordHash,
+    );
+    if (!isValid) throw new UnauthorizedException(" Invalid credentials");
 
     // JWT Zone
-    const payload = { sub: user._id, email: user.email}; // Going to use userResponseDto to avoid exposing the objectID
+    const payload = { sub: user._id, email: user.email }; // Going to use userResponseDto to avoid exposing the objectID
     const accessToken = this.jwtService.sign(payload);
 
     return { accessToken, user };
   }
 
-  async getMe(user_id: string){
+  async getMe(user_id: string) {
     const user = await this.userService.findUserByID(user_id);
-    if(!user) throw new NotFoundException(" User Not Found");
+    if (!user) throw new NotFoundException(" User Not Found");
     return user;
   }
 
@@ -66,5 +73,4 @@ export class AuthService {
 
   }
   */
-
 }

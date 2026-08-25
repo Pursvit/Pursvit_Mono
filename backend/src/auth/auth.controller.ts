@@ -1,25 +1,33 @@
-import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+import {
+  Controller,
+  Get,
+  Query,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { RegisterDto } from "./dto/register.dto";
+import { LoginDto } from "./dto/login.dto";
 
-@Controller('Auth')
+@Controller("Auth")
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-    @Post('register')
-    async register(@Body() registerDto: RegisterDto) {
-        return await this.authService.register(registerDto);
-    }
+  @Post("register")
+  async register(@Body() registerDto: RegisterDto) {
+    return await this.authService.register(registerDto);
+  }
 
-    @Post('login')
-    async login(@Body() loginDto: LoginDto){
-        return await this.authService.login(loginDto);
-    }
+  @Post("login")
+  async login(@Body() loginDto: LoginDto) {
+    return await this.authService.login(loginDto);
+  }
 
-    @Get(':id')
-    async getUser(@Param('id') id: string){
-        return await this.authService.getMe(id);
-    }
-
+  @Get(":id")
+  async getUser(@Param("id") id: string) {
+    return await this.authService.getMe(id);
+  }
 }

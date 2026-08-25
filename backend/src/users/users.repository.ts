@@ -56,7 +56,10 @@ export class UserRepo {
 
   async findUserByEmailDb(email: string): Promise<Users | null> {
     try {
-      return await this.userModel.findOne({email}).select("+passwordHash").exec(); // explicitly selecting the passwordhash becuase we have select it off in schema
+      return await this.userModel
+        .findOne({ email })
+        .select("+passwordHash")
+        .exec(); // explicitly selecting the passwordhash becuase we have select it off in schema
     } catch (error: any) {
       throw new InternalServerErrorException(error.message);
     }

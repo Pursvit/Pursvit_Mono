@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument, Types} from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 
 export type UserDocument = HydratedDocument<Users>;
 
@@ -20,7 +20,6 @@ const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
   },
 })
 export class Users {
-
   _id!: Types.ObjectId;
 
   @Prop({

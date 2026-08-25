@@ -23,24 +23,24 @@ export class Application {
       "Offer",
       "Rejected",
     ],
-    default: "Applied"
+    default: "Applied",
   })
   status!: string;
 
-  @Prop({enum: ['A', 'B']})
+  @Prop({ enum: ["A", "B"] })
   resumeVersion!: string;
 
-  @Prop({enum: ['Startup', 'Mid-size', 'Enterprise']})
+  @Prop({ enum: ["Startup", "Mid-size", "Enterprise"] })
   companySize!: string;
 
-  @Prop({type: Date})
+  @Prop({ type: Date })
   nextFollowUpDate!: Date;
 
-  @Prop({default: 0})
+  @Prop({ default: 0 })
   followUpCount!: number;
 
-  @Prop({type: [String], default: []})
-  rejectionTags!: string[]
+  @Prop({ type: [String], default: [] })
+  rejectionTags!: string[];
 }
 
 export const ApplicationSchema = SchemaFactory.createForClass(Application);
