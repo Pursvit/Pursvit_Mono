@@ -19,7 +19,11 @@ const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
     transform: removeSensitiveFields,
   },
 })
+<<<<<<< HEAD
 export class User {
+=======
+export class Users {
+>>>>>>> 999f5ba5b8a22cb1838871b18467771ba59d8bed
   _id!: Types.ObjectId;
 
   @Prop({

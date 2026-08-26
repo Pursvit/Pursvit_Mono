@@ -55,7 +55,11 @@ export class AuthService {
     return { accessToken, user };
   }
 
+<<<<<<< HEAD
   async getMe(user_id: FindUserId) {
+=======
+  async getMe(user_id: string) {
+>>>>>>> 999f5ba5b8a22cb1838871b18467771ba59d8bed
     const user = await this.userService.findUserByID(user_id);
     if (!user) throw new NotFoundException(" User Not Found");
     return user;
@@ -68,4 +72,8 @@ export class AuthService {
     if (!isValid) throw new UnauthorizedException(" Invalid Credentials");
     return user;
   }
+<<<<<<< HEAD
+=======
+  */
+>>>>>>> 999f5ba5b8a22cb1838871b18467771ba59d8bed
 }
