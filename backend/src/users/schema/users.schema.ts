@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument, Types} from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 
-export type UserDocument = HydratedDocument<Users>;
+export type UserDocument = HydratedDocument<User>;
 
 // This function is used to remove password and version key from where we are using this function(Currently JSON/Object)
 const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
@@ -19,8 +19,7 @@ const removeSensitiveFields = (doc: unknown, ret: Record<string, any>) => {
     transform: removeSensitiveFields,
   },
 })
-export class Users {
-
+export class User {
   _id!: Types.ObjectId;
 
   @Prop({
@@ -29,7 +28,7 @@ export class Users {
     lowercase: true,
     trim: true,
     match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       "Please provide a valid email address",
     ],
   })
@@ -50,4 +49,4 @@ export class Users {
   name!: string;
 }
 
-export const UsersSchema = SchemaFactory.createForClass(Users);
+export const UserSchema = SchemaFactory.createForClass(User);

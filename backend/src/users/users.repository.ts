@@ -1,18 +1,19 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { Users } from "./schema/users.schema";
+import { User } from "./schema/users.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateUserInput } from "./dto/createUser.input";
 import { UpdateUserInput } from "./dto/updateUser.dto";
+import { FindUserId } from "./dto/findUserId.dto";
 
 @Injectable()
-export class UserRepo {
+export class UserRepository {
   constructor(
-    @InjectModel(Users.name)
-    private readonly userModel: Model<Users>,
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>,
   ) {}
 
-  async createUserDb(input: CreateUserInput): Promise<Users> {
+  async createUserDb(input: CreateUserInput): Promise<User> {
     try {
       const createUserDb = new this.userModel({
         email: input.email,
@@ -26,9 +27,9 @@ export class UserRepo {
   }
 
   async updateUserDb(
-    user_id: string,
+    user_id: FindUserId,
     input: UpdateUserInput,
-  ): Promise<Users | null> {
+  ): Promise<User | null> {
     try {
       return await this.userModel
         .findByIdAndUpdate(user_id, input, { new: true })
@@ -38,7 +39,7 @@ export class UserRepo {
     }
   }
 
-  async findUserByIdDb(user_id: string): Promise<Users | null> {
+  async findUserByIdDb(user_id: FindUserId): Promise<User | null> {
     try {
       return await this.userModel.findById(user_id).exec();
     } catch (error: any) {
@@ -46,7 +47,7 @@ export class UserRepo {
     }
   }
 
-  async deleteUserByIdDb(user_id: string): Promise<Users | null> {
+  async deleteUserByIdDb(user_id: FindUserId): Promise<User | null> {
     try {
       return await this.userModel.findByIdAndDelete(user_id).exec();
     } catch (error: any) {
@@ -54,9 +55,12 @@ export class UserRepo {
     }
   }
 
-  async findUserByEmailDb(email: string): Promise<Users | null> {
+  async findUserByEmailDb(email: string): Promise<User | null> {
     try {
-      return await this.userModel.findOne({email}).select("+passwordHash").exec(); // explicitly selecting the passwordhash becuase we have select it off in schema
+      return await this.userModel
+        .findOne({ email })
+        .select("+passwordHash")
+        .exec(); // explicitly selecting the passwordhash becuase we have select it off in schema
     } catch (error: any) {
       throw new InternalServerErrorException(error.message);
     }
