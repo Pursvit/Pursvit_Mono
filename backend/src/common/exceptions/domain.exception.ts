@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 
 export interface ExceptionPayload {
-  message: string,
+  message: string;
   statusCode?: HttpStatus;
-  code?: string,
+  code?: string;
   details?: Record<string, any>;
 }
 
@@ -12,7 +12,10 @@ export abstract class DomainException extends HttpException {
   public readonly details?: Record<string, any>;
 
   constructor({
-    message, statusCode = HttpStatus.BAD_REQUEST, code, details
+    message,
+    statusCode = HttpStatus.BAD_REQUEST,
+    code,
+    details,
   }: ExceptionPayload) {
     super(
       {

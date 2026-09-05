@@ -10,6 +10,7 @@ import { ThrottleConfig } from "./common/config/rate-limit.config";
 import { ValidationCofig } from "./common/config/validation.config";
 import { DatabaseConfig } from "./common/config/database.config";
 import { APP_GUARD } from "@nestjs/core";
+import { ApplicationModule } from "./applications/application.module";
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { APP_GUARD } from "@nestjs/core";
     }),
     UserModule,
     AuthModule,
+    ApplicationModule,
   ],
 
   controllers: [AppController],

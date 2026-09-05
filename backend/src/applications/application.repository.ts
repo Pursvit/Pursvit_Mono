@@ -13,11 +13,13 @@ export class ApplicationRepository {
   async create(
     userId: string,
     newData: CreateApplicationDto,
+    nextFollowUpDate: Date,
   ): Promise<ApplicationDocument> {
     try {
       const createApplication = new this.appModel({
         userID: new Types.ObjectId(userId),
         ...newData,
+        nextFollowUpDate: nextFollowUpDate,
       });
       return await createApplication.save();
     } catch (error: any) {
@@ -67,12 +69,12 @@ export class ApplicationRepository {
 
   async update(
     appId: string,
-    userID: string,
+    userId: string,
     updateData: Partial<CreateApplicationDto>,
   ): Promise<ApplicationDocument | null> {
     try {
       return await this.appModel.findOneAndUpdate(
-        { _id: appId, userId: new Types.ObjectId(userID) },
+        { _id: appId, userId: new Types.ObjectId(userId) },
         updateData,
         { new: true },
       );

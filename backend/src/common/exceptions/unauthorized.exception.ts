@@ -6,7 +6,7 @@ export class UnauthorizedException extends DomainException {
     super({
       message,
       statusCode: HttpStatus.UNAUTHORIZED,
-      code: "UNAUTHORIZED_ACCESS"
-    })
+      code: "UNAUTHORIZED_ACCESS",
+    });
   }
 }

@@ -9,7 +9,6 @@ import * as argon from "argon2";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
 import { IUser } from "@app/common/interfaces/user.interface";
-import { FindUserId } from "@app/users/dto/findUserId.dto";
 
 @Injectable()
 export class AuthService {
@@ -55,7 +54,7 @@ export class AuthService {
     return { accessToken, user };
   }
 
-  async getMe(user_id: FindUserId) {
+  async getMe(user_id: string) {
     const user = await this.userService.findUserByID(user_id);
     if (!user) throw new NotFoundException(" User Not Found");
     return user;
