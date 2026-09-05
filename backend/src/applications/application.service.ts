@@ -18,7 +18,7 @@ export class ApplicationService {
 
   async create(userId: string, newData: CreateApplicationDto) {
     const nextFollowUpDate = this.calculateFollowUpDate(newData.companySize);
-    return await this.repo.create(userId, { ...newData, nextFollowUpDate });
+    return await this.repo.create(userId, newData, nextFollowUpDate);
   }
 
   async findAllByUser(userId: string) {

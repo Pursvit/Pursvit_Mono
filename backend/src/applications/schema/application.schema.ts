@@ -6,7 +6,7 @@ export type ApplicationDocument = HydratedDocument<Application>;
 @Schema({ timestamps: true })
 export class Application {
   @Prop({ type: Types.ObjectId, ref: "User", required: true })
-  userID!: Types.ObjectId;
+  userId!: Types.ObjectId;
 
   @Prop({ required: true })
   company!: string;

@@ -7,7 +7,7 @@ export class ValidationException extends DomainException {
       message: "Valitdation Failed.",
       statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
       code: "Validation Error",
-      details: typeof errors === 'string' ? { error: errors } : errors,
-    })
+      details: typeof errors === "string" ? { error: errors } : errors,
+    });
   }
 }

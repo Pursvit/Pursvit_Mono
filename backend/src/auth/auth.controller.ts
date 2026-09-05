@@ -4,7 +4,6 @@ import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
-import { FindUserId } from "@app/users/dto/findUserId.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -15,7 +14,7 @@ export class AuthController {
     return await this.authService.register(registerDto);
   }
 
-  @UseGuards(LocalAuthGuard)
+  // @UseGuards(LocalAuthGuard)
   @Post("login")
   async login(@Body() loginDto: LoginDto) {
     return await this.authService.login(loginDto);
@@ -23,7 +22,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get(":id")
-  async getUser(@Param("id") id: FindUserId) {
+  async getUser(@Param("id") id: string) {
     return await this.authService.getMe(id);
   }
 }

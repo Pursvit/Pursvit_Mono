@@ -20,7 +20,7 @@ export class UserService {
     return await this.userRepo.deleteUserByIdDb(user_id);
   }
 
-  async findUserByID(user_id: FindUserId) {
+  async findUserByID(user_id: string) {
     return await this.userRepo.findUserByIdDb(user_id);
   }
 

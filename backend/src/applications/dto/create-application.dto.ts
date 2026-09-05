@@ -25,7 +25,4 @@ export class CreateApplicationDto {
   @IsOptional()
   @IsString()
   status?: string;
-
-  @IsDate()
-  nextFollowUpDate!: Date;
 }
